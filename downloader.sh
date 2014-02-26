@@ -2,7 +2,7 @@
 
 set -e
 set -u
-#set -x
+set -x
 
 # This program will get started automatically by the enqueue.sh script.
 starting=TRUE
@@ -40,7 +40,7 @@ while /bin/true ; do
   url_to_download="$(cat "${HOLDING_DIR}/${url_file}")"
   echo "=> Starting download: ${url_to_download}"
 
-  options="${YOUTUBE_DL_OPTIONS} -o \"${DOWNLOAD_DIR}/%(title)s.%(id)s.%(ext)s\""
+  options="${YOUTUBE_DL_OPTIONS} -o ${DOWNLOAD_DIR}/%(title)s.%(id)s.%(ext)s"
   if youtube-dl ${options} "${url_to_download}" ; then
     # success! remove the URL from the queue
     echo "=> Success."
