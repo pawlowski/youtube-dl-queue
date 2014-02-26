@@ -1,0 +1,6 @@
+* The downloader will start automatically as soon as you start
+  enqueueing URLs.
+
+* If downloads are disrupted for any reason, the queue can be started
+  again (by running "enqueue.sh") and should recover to where it
+  left off.

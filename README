@@ -1,0 +1,13 @@
+Use these scripts to download a bunch of YouTube videos.
+
+1. Download and install youtube-dl on your system:
+
+    http://rg3.github.io/youtube-dl/
+
+2. Execute the "enqueue" script:
+
+    ./enqueue.sh
+
+3. Paste URLs of YouTube videos at the command line.
+
+4. Watch the downloads go!
