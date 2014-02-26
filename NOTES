@@ -6,3 +6,6 @@
 * If downloads are disrupted for any reason, the queue can be started
   again (by running "enqueue.sh") and should recover to where it
   left off.
+
+* To change the options passed to youtube-dl, change the YOUTUBE_DL_OPTIONS
+  variable in downloader.sh.
