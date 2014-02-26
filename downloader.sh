@@ -6,7 +6,7 @@ set -x
 
 # This program will get started automatically by the enqueue.sh script.
 
-YOUTUBE_DL_OPTIONS="-r 1M --restrict-filename --no-playlist"
+YOUTUBE_DL_OPTIONS="-r 1M --restrict-filename --no-playlist --no-check-certificate"
 
 ROOT_DIR="$(dirname "$0")"
 QUEUE_DIR="${ROOT_DIR}/queue"
@@ -14,6 +14,7 @@ HOLDING_DIR="${ROOT_DIR}/holding"
 mkdir -p "${HOLDING_DIR}"
 DOWNLOAD_DIR="${ROOT_DIR}/download"
 mkdir -p "${DOWNLOAD_DIR}"
+ERROR_DIR="${ROOT_DIR}/error"
 
 while /bin/true ; do
   # First check if there's a leftover URL in "holding"
@@ -33,11 +34,12 @@ while /bin/true ; do
 
   if youtube-dl ${YOUTUBE_DL_OPTIONS} "${url_to_download}" ; then
     # success! remove the URL from the queue
+    echo "Success."
     rm -f "${HOLDING_DIR}/${url_file}"
   else
-    # reenqueue the URL
-    mv "${HOLDING_DIR}/${url_file}" "${QUEUE_DIR}"
-    # touch the file so it goes to the end of the queue
-    touch "${QUEUE_DIR}/${url_file}"
+    # failure :( move to the error dir
+    echo "Failure."
+    mkdir -p "${ERROR_DIR}"
+    mv "${HOLDING_DIR}/${url_file}" "${ERROR_DIR}"
   fi
 done
