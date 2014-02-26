@@ -5,7 +5,7 @@ set -u
 #set -x
 
 # This program will get started automatically by the enqueue.sh script.
-echo "Starting the downloader..."
+starting=TRUE
 
 YOUTUBE_DL_OPTIONS="--quiet -r 1M --restrict-filename --no-playlist --no-check-certificate --recode-video mp4"
 
@@ -24,10 +24,17 @@ while /bin/true ; do
     # Nothing in "holding", choose the oldest file to download first
     url_file=$(ls -tr "${QUEUE_DIR}" | head -1)
     if [ -z "${url_file}" ] ; then
-      echo "Queue is empty."
+      if [ "${starting}" != "TRUE" ] ; then
+        echo "Queue is empty."
+      fi
       exit 0
     fi
     mv "${QUEUE_DIR}/${url_file}" "${HOLDING_DIR}"
+  fi
+
+  if [ "${starting}" = "TRUE" ] ; then
+    echo "Starting the downloader..."
+    starting=FALSE
   fi
 
   url_to_download="$(cat "${HOLDING_DIR}/${url_file}")"
