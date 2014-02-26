@@ -5,8 +5,9 @@ set -u
 set -x
 
 # This program will get started automatically by the enqueue.sh script.
+echo "Starting the downloader..."
 
-YOUTUBE_DL_OPTIONS="-r 1M --restrict-filename --no-playlist --no-check-certificate"
+YOUTUBE_DL_OPTIONS="-r 1M --restrict-filename --no-playlist --no-check-certificate --recode-video mp4"
 
 ROOT_DIR="$(dirname "$0")"
 QUEUE_DIR="${ROOT_DIR}/queue"
