@@ -25,7 +25,7 @@ while /bin/true ; do
     url_file=$(ls -tr "${QUEUE_DIR}" | head -1)
     if [ -z "${url_file}" ] ; then
       if [ "${starting}" != "TRUE" ] ; then
-        echo "Queue is empty."
+        echo "=> Queue is empty."
       fi
       exit 0
     fi
@@ -33,21 +33,21 @@ while /bin/true ; do
   fi
 
   if [ "${starting}" = "TRUE" ] ; then
-    echo "Starting the downloader..."
+    echo "=> Starting the downloader..."
     starting=FALSE
   fi
 
   url_to_download="$(cat "${HOLDING_DIR}/${url_file}")"
-  echo "Starting download: ${url_to_download}"
+  echo "=> Starting download: ${url_to_download}"
 
   options="${YOUTUBE_DL_OPTIONS} -o \"${DOWNLOAD_DIR}/%(title)s.%(id)s.%(ext)s\""
   if youtube-dl ${options} "${url_to_download}" ; then
     # success! remove the URL from the queue
-    echo "Success."
+    echo "=> Success."
     rm -f "${HOLDING_DIR}/${url_file}"
   else
     # failure :( move to the error dir
-    echo "Failure."
+    echo "=> Failure."
     mkdir -p "${ERROR_DIR}"
     mv "${HOLDING_DIR}/${url_file}" "${ERROR_DIR}"
   fi
