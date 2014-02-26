@@ -17,8 +17,8 @@ elif [ "${download}" = "yes" ] ; then
   download="Y"
 fi
 
-echo "Enter the URL of a video (CTRL-C to stop):"
-while read u ; do
+echo "Enter URLs of videos (CTRL-C to stop):"
+while /bin/true ; do
   if [ "${download}" = "Y" ] ; then
     # start the downloader
     downloaders=$(ps -f | grep downloader.sh | wc -l)
@@ -28,5 +28,7 @@ while read u ; do
     fi
   fi
 
+  read u
   queue_file=$(mktemp --tmpdir="${QUEUE_DIR}" "url.$(date +%Y%m%d).XXXXXX")
+  echo "${u}" > "${queue_file}"
 done
