@@ -2,7 +2,7 @@
 
 set -e
 set -u
-set -x
+#set -x
 
 # This program will get started automatically by the enqueue.sh script.
 starting=TRUE
