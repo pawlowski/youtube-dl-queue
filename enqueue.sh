@@ -8,6 +8,8 @@
 
 # wait for input
 QUEUE_DIR="$(dirname $0)/queue"
+mkdir -p "${QUEUE_DIR}"
+
 while read u ; do
   queue_file=$(mktemp --tmpdir="${QUEUE_DIR}" "url.$(date +%Y%m%d).XXXXXX")
   echo "${u}" > "${queue_file}"
